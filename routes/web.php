@@ -22,4 +22,7 @@ Route::get('/', function () {
 
 Route::get('/upload', [UploadController::class, 'uploadview']);
 
+Route::get('/download/{id}', [UploadController::class, 'download']);
+
+
 Route::post('/save', [UploadController::class, 'save'])->name('save.post');
