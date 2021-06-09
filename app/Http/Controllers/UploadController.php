@@ -39,24 +39,32 @@ class UploadController extends Controller
 
     }
 
+
     public function download($id){
         $posty = DB::table('repository.otr_attachment')->where('Id',$id)->first();
 
 
-  
-
-
         Storage::disk('public')->put($posty->FileName,base64_decode($posty->IMG));
 
-        // Storage::disk('media')->url('HRTKD1607258351/HRTKD1607258351.jpg');
+   
+
+        
+
         // File Path is storage/app/public
+        // return response()->download(storage_path('app/public/file.pdf'));
 
+        // Dynamic
+        return response()->download(storage_path('app/public/'.$posty->FileName));
 
+        // For public folder
+        // return response()->download(public_path('app/public/file.pdf'));
+
+        // DD
+        // dd($posty->FileName);
 
 
 
 
     }
-
 
 }
