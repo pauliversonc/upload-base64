@@ -26,6 +26,19 @@ class UploadController extends Controller
                 $randomized = rand();
                 $newFileName = str_replace(' ', '', $fileNameOnly).'-'.$randomized.''.time().'.'.$extension;
 
+
+
+
+                $destinationPath = "public/Attachments/".session('LoggedUser_CompanyID')."/SOF/";
+                // For preview
+
+                $file->storeAs($destinationPath, $completeFileName);
+
+
+
+
+
+
                 $image = base64_encode(file_get_contents($file));
 
                 
@@ -44,16 +57,21 @@ class UploadController extends Controller
         $posty = DB::table('repository.otr_attachment')->where('Id',$id)->first();
 
 
+        
+
         Storage::disk('public')->put($posty->FileName,base64_decode($posty->IMG));
 
    
 
         
 
+
+
+
         // File Path is storage/app/public
         // return response()->download(storage_path('app/public/file.pdf'));
 
-        // Dynamic
+        // Dynamic Download
         return response()->download(storage_path('app/public/'.$posty->FileName));
 
         // For public folder
@@ -66,5 +84,5 @@ class UploadController extends Controller
 
 
     }
-
+  
 }
